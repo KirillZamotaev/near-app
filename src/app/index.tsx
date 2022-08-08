@@ -1,6 +1,8 @@
 import { notification } from 'antd';
 import { useWallet } from 'features/wallet';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useParams } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { Routing } from 'routing';
 
 import './App.css';
@@ -13,7 +15,6 @@ notification.config({
 });
 
 export const App: FC = () => {
-
   useWallet();
 
   return (
