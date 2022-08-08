@@ -96,7 +96,7 @@ class IWalletApi {
   viewMarket = async (marketId: string) => {
     console.log('getting market', marketId);
     try {
-      let market = await window.contract.view_market({ market_id: marketId });
+      let market = await window.contract.view_market({ market_id: +marketId });
       console.log('--->', market);
       return market;
     } catch(err) {
