@@ -13,13 +13,16 @@ export const useUser = () => {
     if (userState.isSignedIn) {
       navigate('/');
     } else {
-        navigate('/signin');
+      navigate('/signin');
     }
   }, [navigate, userState.isSignedIn]);
 
-  const handleSingIn = () => {
-    WalletApi.requestSingIn();
-  }
+  const handleSingIn = (args: any) => {
+    dispatch<any>(signIn(args));
+    setTimeout(() => {
+        WalletApi.requestSingIn()
+    }, 1500);
+  };
 
   useEffect(() => {
     signInCheck();
@@ -27,10 +30,7 @@ export const useUser = () => {
 
   return {
     ...userState,
-    signIn: (args: any) => {
-        handleSingIn(); 
-        dispatch<any>(signIn(args))
-    },
+    signIn: handleSingIn,
     signOut: () => dispatch<any>(signOut()),
   };
 };

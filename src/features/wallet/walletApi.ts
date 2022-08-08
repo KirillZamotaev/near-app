@@ -30,10 +30,8 @@ class IWalletApi {
     }
   };
 
-  requestSingIn = async () => {
-    window.walletConnection.requestSignIn(
-      window.nearConfig.contractName
-      );
+  requestSignIn = () => {
+    window.walletConnection.requestSignIn();
   };
 
   checkSignIn = () => {

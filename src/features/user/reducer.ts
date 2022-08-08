@@ -23,8 +23,8 @@ const initialState: UserState = {
 export const signIn = createAsyncThunk(
   'user/signIn',
   async (values: Record<string, string | number>) => {
-    const response = await WalletApi.requestSingIn();
-    return response;
+    // const response = await WalletApi.requestSignIn();
+    return true;
   }
 );
 
