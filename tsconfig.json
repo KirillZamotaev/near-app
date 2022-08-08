@@ -8,8 +8,8 @@
     ],
     "baseUrl": "src",
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "esModuleInallowSyntheticDefaultImportsterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
@@ -22,5 +22,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["src/setupProxy.js"]
 }

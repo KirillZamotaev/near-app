@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { WalletApi } from './walletApi'; 
 
 export const connectWallet = createAsyncThunk('wallet/connect', async () => {
-    const response = await WalletApi.connect();
+    const response = await WalletApi.initContract();
     return response
 })
 

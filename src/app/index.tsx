@@ -1,4 +1,5 @@
 import { notification } from 'antd';
+import { useWallet } from 'features/wallet';
 import { FC } from 'react';
 import { Routing } from 'routing';
 
@@ -12,6 +13,9 @@ notification.config({
 });
 
 export const App: FC = () => {
+
+  useWallet();
+
   return (
     <div className="App">
       <Routing />

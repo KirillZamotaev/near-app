@@ -22,7 +22,7 @@ export const useUser = () => {
 
   return {
     ...userState,
-    signIn: (args: any) => dispatch(signIn(args)),
-    signOut: () => dispatch(signOut()),
+    signIn: (args: any) => dispatch<any>(signIn(args)),
+    signOut: () => dispatch<any>(signOut()),
   };
 };

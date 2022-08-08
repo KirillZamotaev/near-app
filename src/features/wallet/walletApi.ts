@@ -22,10 +22,6 @@ class IWalletApi {
   contract: any = {};
   walletConnection: WalletConnection = {} as WalletConnection;
 
-  constructor() {
-    this.initContract();
-  }
-
   requestSingOut = async () => { 
     try {
       const request = await this.walletConnection.signOut();
@@ -61,7 +57,6 @@ class IWalletApi {
     this.near = await connect(this.nearConfig as ConnectConfig);
     console.log('near', this.nearConfig);
 
-    // Initialize a Wallet Object
     this.walletConnection = new WalletConnection(this.near, 'near-app-test');
     console.log('walletConnection', this.walletConnection);
 

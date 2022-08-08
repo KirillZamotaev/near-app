@@ -69,12 +69,14 @@ export const userSlice = createSlice({
       state.isSignedIn = payload;
     });
     builder.addCase(signOut.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
       notification.open({
         message: 'Signed out successfully',
       });
     });
     builder.addCase(signOut.pending, (state, { payload }) => {
       state.isSignedIn = false;
+      state.isLoading = true;
       state.data = {};
     });
     builder.addCase(signOut.rejected, (state, { payload }) => {

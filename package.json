@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.6",
     "antd": "^4.22.3",
     "bn.js": "^5.2.1",
+    "http-proxy-middleware": "^2.0.6",
     "near-api-js": "^0.45.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
