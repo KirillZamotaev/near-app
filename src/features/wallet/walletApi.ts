@@ -5,14 +5,22 @@ import {
   //   utils,
   //   providers,
   Near,
+  ConnectConfig,
 } from 'near-api-js';
 import { getConfig } from './config';
 
+type NearConfig = ConnectConfig & {
+  contractName: string;
+  headers: {
+    [key: string]: string | number;
+  };
+};
+
 class IWalletApi {
-  nearConfig: any;
-  near: Near;
-  contract: any;
-  walletConnection: any;
+  nearConfig: any = {};
+  near: Near = {} as Near;
+  contract: any = {};
+  walletConnection: WalletConnection = {} as WalletConnection;
 
   constructor() {
     this.initContract();
@@ -21,7 +29,7 @@ class IWalletApi {
   requestSingOut = async () => {
     console.log('request signout');
     try {
-      const request = await this.walletConnection.requestSingOut();
+      const request = await this.walletConnection.signOut();
       return request;
     } catch (err) {
       console.log(err);
@@ -49,21 +57,24 @@ class IWalletApi {
   initContract = async () => {
     this.nearConfig = await getConfig(process.env.NODE_ENV || 'development');
     console.log('nearConfig', this.nearConfig);
-    // Set a connection to the NEAR network
-    this.near = await connect(this.nearConfig);
+
+    this.near = await connect(this.nearConfig as ConnectConfig);
+    console.log('near', this.nearConfig);
 
     // Initialize a Wallet Object
     this.walletConnection = new WalletConnection(this.near, 'near-app-test');
+    console.log('walletConnection', this.walletConnection);
 
-    // Initialize a Contract Object (to interact with the contract)
     this.contract = await new Contract(
-      this.walletConnection.account(), // user's account
-      this.nearConfig.contractName, // contract's account
+      this.walletConnection.account(),
+      this.nearConfig.contractName,
       {
         viewMethods: ['beneficiary', 'get_donations', 'total_donations'],
         changeMethods: ['donate'],
       }
     );
+
+    console.log('contract', this.contract);
   };
 
   latestDonations = async () => {

@@ -55,11 +55,12 @@ export const walletSlice = createSlice({
     builder.addCase(signIn.fulfilled, (state, { payload }) => {
       state.isSignedIn = true;
       state.isLoading = false;
-      state.contractData = payload?.contractData;
+      state.contractData = payload;
     });
     builder.addCase(signIn.rejected, (state, { error }) => {
       state.isSignedIn = false;
       state.isLoading = false;
+      console.log('error', error)
 
       notification.open({
         message: 'Error',
