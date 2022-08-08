@@ -3,9 +3,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    '/address/*',
+    '/address',
     createProxyMiddleware({
-      target: 'https://testnet.nearblocks.io/address/',
+      target: 'https://testnet.nearblocks.io',
       changeOrigin: true,
     })
   );

@@ -23,8 +23,7 @@ const initialState: UserState = {
 export const signIn = createAsyncThunk(
   'user/signIn',
   async (values: Record<string, string | number>) => {
-    console.log('signIn async', values);
-    const response = await WalletApi.requestSingIn(values);
+    const response = await WalletApi.requestSingIn();
     return response;
   }
 );
@@ -60,7 +59,7 @@ export const userSlice = createSlice({
       state.isLoading = false;
       console.log('error', error)
 
-      notification.open({
+      notification['error']({
         message: 'Error',
         description: error.message,
       });
@@ -70,7 +69,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(signOut.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      notification.open({
+      notification['success']({
         message: 'Signed out successfully',
       });
     });

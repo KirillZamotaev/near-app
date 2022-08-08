@@ -9,22 +9,20 @@ import {
 } from 'near-api-js';
 import { getConfig } from './config';
 
-// type NearConfig = ConnectConfig & {
-//   contractName: string;
-//   headers: {
-//     [key: string]: string | number;
-//   };
-// };
+declare global {
+  interface Window {
+    nearConfig: any;
+    near: Near;
+    contract: any;
+    walletConnection: WalletConnection;
+  }
+}
+
 
 class IWalletApi {
-  nearConfig: any = {};
-  near: Near = {} as Near;
-  contract: any = {};
-  walletConnection: WalletConnection = {} as WalletConnection;
-
   requestSingOut = async () => { 
     try {
-      const request = await this.walletConnection.signOut();
+      const request = await window.walletConnection.signOut();
       return request;
     } catch (err) {
       console.log(err);
@@ -32,52 +30,44 @@ class IWalletApi {
     }
   };
 
-  requestSingIn = async (values: Record<string, string | number>) => {
-    console.log('request signin values', values);
-
-    try {
-      const request = await this.walletConnection.requestSignIn(
-        this.nearConfig.contractName
+  requestSingIn = async () => {
+    window.walletConnection.requestSignIn(
+      window.nearConfig.contractName
       );
-      return request;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
   };
 
   checkSignIn = () => {
-    return this.walletConnection.isSignedIn();
+    return window.walletConnection.isSignedIn();
   };
 
   initContract = async () => {
-    this.nearConfig = await getConfig(process.env.NODE_ENV || 'development');
-    console.log('nearConfig', this.nearConfig);
+    window.nearConfig = await getConfig(process.env.NODE_ENV || 'development');
+    console.log('nearConfig', window.nearConfig);
 
-    this.near = await connect(this.nearConfig as ConnectConfig);
-    console.log('near', this.nearConfig);
+    window.near = await connect(window.nearConfig as ConnectConfig);
+    console.log('near', window.nearConfig);
 
-    this.walletConnection = new WalletConnection(this.near, 'near-app-test');
-    console.log('walletConnection', this.walletConnection);
+    window.walletConnection = new WalletConnection(window.near, 'near-app-test');
+    console.log('walletConnection', window.walletConnection);
 
-    this.contract = await new Contract(
-      this.walletConnection.account(),
-      this.nearConfig.contractName,
+    window.contract = await new Contract(
+      window.walletConnection.account(),
+      window.nearConfig.contractName,
       {
         viewMethods: ['beneficiary', 'get_donations', 'total_donations'],
         changeMethods: ['donate'],
       }
     );
 
-    console.log('contract', this.contract);
+    console.log('contract', window.contract);
   };
 
   latestDonations = async () => {
-    const total_donations = await this.contract.total_donations();
+    const total_donations = await window.contract.total_donations();
 
     const min = total_donations > 10 ? total_donations - 9 : 0;
 
-    let donations = await this.contract.get_donations({
+    let donations = await window.contract.get_donations({
       from_index: min.toString(),
       limit: total_donations,
     });
@@ -86,13 +76,13 @@ class IWalletApi {
   };
 
   getMarkets = async () => {
-    let markets = await this.contract.markets({});
+    let markets = await window.contract.markets({});
 
     return markets;
   };
 
   viewMarket = async (marketId: string) => {
-    let market = await this.contract.view_market({ market_id: marketId });
+    let market = await window.contract.view_market({ market_id: marketId });
 
     return market;
   };

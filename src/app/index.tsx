@@ -6,7 +6,7 @@ import { Routing } from 'routing';
 import './App.css';
 
 notification.config({
-  placement: 'bottomRight',
+  placement: 'topRight',
   bottom: 50,
   duration: 3,
   rtl: true,

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector, signIn, signOut, signInCheck } from 'features/user';
 import { useNavigate } from 'react-router';
+import { WalletApi } from 'features/wallet/walletApi';
 
 export const useUser = () => {
   const dispatch = useDispatch();
@@ -16,13 +17,20 @@ export const useUser = () => {
     }
   }, [navigate, userState.isSignedIn]);
 
+  const handleSingIn = () => {
+    WalletApi.requestSingIn();
+  }
+
   useEffect(() => {
     signInCheck();
   }, []);
 
   return {
     ...userState,
-    signIn: (args: any) => dispatch<any>(signIn(args)),
+    signIn: (args: any) => {
+        handleSingIn(); 
+        dispatch<any>(signIn(args))
+    },
     signOut: () => dispatch<any>(signOut()),
   };
 };
