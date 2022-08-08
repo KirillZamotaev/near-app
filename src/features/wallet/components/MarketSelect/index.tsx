@@ -13,6 +13,7 @@ export const MarketSelect = () => {
 
   const handleChangeMarket = (itemId: string) => {
     const item = data.find((el: MarketItem) => `${el.market_id}` === itemId);
+    console.log('item', item);
     dispatch(setSelectedMarket(item));
   }
 

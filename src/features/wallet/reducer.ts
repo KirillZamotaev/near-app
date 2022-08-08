@@ -64,11 +64,8 @@ export const walletSlice = createSlice({
     })
     builder.addCase(getWalletData.fulfilled, (state, { payload }) => {
       state.deposit = payload;
-      state.isConnected = true
-    })
-    builder.addCase(getWalletData.rejected, (state, { payload }) => {
       state.isLoading = false;
-      state.isError = true;
+      state.isConnected = true
     })
   },
 })

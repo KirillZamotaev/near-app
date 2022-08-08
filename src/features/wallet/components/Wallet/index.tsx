@@ -3,13 +3,12 @@ import { useWallet } from 'features/wallet';
 import { Spinner } from 'routing/components/Loader';
 
 export const Wallet = () => {
-  const { data, isLoading, isError } = useWallet();
+  const { data, isLoading } = useWallet();
 
   return (
     <div>
       <Card title="Wallet info" bordered={false} style={{ width: 300 }}>
         {isLoading && <Spinner />}
-        {isError && 'Rejected...'}
         {data && (
           <>
             <p>Address: {data.address}</p>
