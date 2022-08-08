@@ -20,7 +20,7 @@ export const useUser = () => {
   const handleSingIn = (args: any) => {
     dispatch<any>(signIn(args));
     setTimeout(() => {
-        WalletApi.requestSingIn()
+        WalletApi.requestSignIn()
     }, 1500);
   };
 
