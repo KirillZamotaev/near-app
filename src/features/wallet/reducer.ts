@@ -30,21 +30,7 @@ const initialState: UserState = {
 export const walletSlice = createSlice({
   name: 'wallet',
   initialState,
-  
-  reducers: {
-    signIn: (state) => {
-        state.isLoading = true;
-    },
-    signInSuccess: (state, { payload }: PayloadAction) => {
-        state.data = payload;
-    },
-    signInFail: (state) => {
-      state.isError = true;
-    },
-    reset: (state) => {
-        state = initialState;
-    },  
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(connectWallet.pending, (state) => {
       state.isLoading = true;
@@ -59,8 +45,5 @@ export const walletSlice = createSlice({
     })
   },
 })
-
-// Action creators are generated for each case reducer function
-export const { signIn, signInSuccess, signInFail } = walletSlice.actions
 
 export default walletSlice.reducer
