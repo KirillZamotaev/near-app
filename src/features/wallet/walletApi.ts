@@ -20,11 +20,22 @@ class IWalletApi {
   nearConfig: any;
   contract: any;
 
+  requestSingOut = async () => {
+    console.log('request signout')
+    try {
+      const request = await window.walletConnection.requestSingOut()
+      return request;
+    } catch (err) {
+        console.log(err)
+        return false
+    }
+  } 
+
   requestSingIn = async (values: Record<string, string | number>) => {
     console.log('request signin values', values)
     try {
-    const request = await window.walletConnection.requestSignIn(this.nearConfig.contractName)
-    return request;
+      const request = await window.walletConnection.requestSignIn(this.nearConfig.contractName)
+      return request;
     } catch (err) {
         console.log(err)
         return false

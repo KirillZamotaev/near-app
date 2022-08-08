@@ -19,13 +19,18 @@ const initialState: UserState = {
   isSignedIn: false,
 };
 
-export const signIn = createAsyncThunk('user/signing', async (values: Record<string, string | number>) => {
+export const signIn = createAsyncThunk('user/signin', async (values: Record<string, string | number>) => {
   await new Promise((res) => {
     setTimeout(() => res(1), 2000);
   });
   const response = await WalletApi.requestSingIn(values);
   return response;
 });
+
+export const signOut = createAsyncThunk('user/signout', async () => {
+  const response = await WalletApi.requestSingOut();
+  return response;
+})
 
 
 export const signInCheck = createAsyncThunk('user/signing', async () => {
@@ -37,11 +42,7 @@ export const signInCheck = createAsyncThunk('user/signing', async () => {
 export const walletSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    signOut: (state) => {
-      state = initialState;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state, { payload }) => {
         state.isLoading = true;
@@ -59,9 +60,13 @@ export const walletSlice = createSlice({
     builder.addCase(signInCheck.fulfilled, (state, { payload }) => {
         state.isSignedIn = payload;
     })
+    builder.addCase(signOut.fulfilled, (state, { payload }) => {
+      state = initialState;
+    });
+    builder.addCase(signOut.pending, (state, { payload }) => {
+      state = initialState;
+    });
   },
 });
-
-export const { signOut } = walletSlice.actions;
 
 export default walletSlice.reducer;
