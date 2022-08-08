@@ -24,7 +24,7 @@ class IWalletApi {
     return window.walletConnection.isSignedIn();
   };
 
-  constructor (){
+  constructor() {
     this.connect();
   }
 
