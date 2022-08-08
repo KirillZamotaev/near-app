@@ -7,8 +7,16 @@ export const connectWallet = createAsyncThunk('wallet/connect', async () => {
 })
 
 export const getWalletData = createAsyncThunk('wallet/data', async () => {
+  
   const address = WalletApi.getAddress();
-  const balance = await WalletApi.getDeposit();
+  let balance = undefined;
+  try {
+    balance = await WalletApi.getDeposit();
+    
+  } catch(err) {
+    // .... // 
+  }
+  
   return {
     balance,
     address,
