@@ -28,7 +28,6 @@ export const SignIn = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        disabled={isLoading}
       >
         <Form.Item
           label="Username"

@@ -38,12 +38,8 @@ class IWalletApi {
   connect = async () => {
     try {
       const config = await this.getConfig();
-      const contractData = await this.initContract();
 
-      return {
-        config,
-        contractData,
-      };
+      return config;
     } catch (err) {
       console.log('connect err::', err);
     }
