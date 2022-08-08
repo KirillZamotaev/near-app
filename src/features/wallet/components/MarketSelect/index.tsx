@@ -12,8 +12,8 @@ export const MarketSelect = () => {
   const { data, isLoading } = useMarketData();
 
   const handleChangeMarket = (itemId: string) => {
-    const item = data.find((el: MarketItem) => `${el.market_id}` === itemId);
-    console.log('item', item);
+    const item = data.find((el: MarketItem) => el.id === itemId);
+    console.log('item', itemId, data, item);
     dispatch(setSelectedMarket(item));
   }
 
@@ -22,7 +22,7 @@ export const MarketSelect = () => {
       <Select loading={isLoading} onChange={handleChangeMarket} className="MarketSelect__select">
         {data.map((item) => {
           return (
-            <Option key={item.base.ticker} value={item.market_id} label={item.base.ticker}>
+            <Option key={item.base.ticker} value={item.id} label={item.base.ticker}>
               {item.base.ticker}
             </Option>
           );

@@ -9,14 +9,9 @@ export const connectWallet = createAsyncThunk('wallet/connect', async () => {
 export const getWalletData = createAsyncThunk('wallet/data', async () => {
   
   const address = WalletApi.getAddress();
-  let balance = undefined;
-  try {
-    balance = await WalletApi.getDeposit();
-    
-  } catch(err) {
-    // .... // 
-  }
-  
+ 
+  const { balance } = await WalletApi.getAccountData();
+
   return {
     balance,
     address,
@@ -63,7 +58,7 @@ export const walletSlice = createSlice({
       state.isLoading = true;
     })
     builder.addCase(getWalletData.fulfilled, (state, { payload }) => {
-      state.deposit = payload;
+      state.data = payload;
       state.isLoading = false;
       state.isConnected = true
     })

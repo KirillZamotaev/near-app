@@ -1,5 +1,5 @@
 export interface MarketItem {
-  market_id: number;
+  id: string;
   base: {
     ticker: string;
     decimal: number;

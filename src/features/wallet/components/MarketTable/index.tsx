@@ -30,7 +30,7 @@ export const MarketTable = () => {
   );
 
   return (
-    <div className="MarketTable">
+    <div className="MarketTable">      
       <Table loading={isLoading} dataSource={data.ask_orders} columns={columns} />
       <Table loading={isLoading} dataSource={data.bid_orders} columns={columns} />
     </div>

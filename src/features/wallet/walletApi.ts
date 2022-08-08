@@ -2,7 +2,7 @@ import {
   connect,
   Contract,
   WalletConnection,
-  //   utils,
+  utils,
   //   providers,
   Near,
   ConnectConfig,
@@ -73,10 +73,14 @@ class IWalletApi {
     return donations;
   };
 
-  getDeposit = async () => {
-    let deposit = await window.contract.get_deposit({ account_id: window.contract.account.accountId});
-
-    return deposit;
+  getAccountData = async () => {
+    const account = await window.near.account(this.getAddress())
+    const balance = await account.getAccountBalance();
+    const details = await account.getAccountDetails();
+    return {
+      balance,
+      details,
+    }
   };
 
   getMarkets = async () => {
@@ -91,9 +95,14 @@ class IWalletApi {
 
   viewMarket = async (marketId: string) => {
     console.log('getting market', marketId);
-    let market = await window.contract.view_market({ market_id: marketId });
-
-    return market;
+    try {
+      let market = await window.contract.view_market({ market_id: marketId });
+      console.log('--->', market);
+      return market;
+    } catch(err) {
+      console.log('-->', err);
+    }
+    return {};
   };
 }
 

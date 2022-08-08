@@ -10,7 +10,7 @@ export const useTableMarketData = () => {
 
   useEffect(() => {
     if (market) {
-      dispatch<any>(getMarketData(`${market.market_id}`));
+      dispatch<any>(getMarketData(`${market.id}`));
     }
   }, [market, dispatch]);
 
