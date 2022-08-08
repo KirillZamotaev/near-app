@@ -2,8 +2,8 @@ import {
   connect,
   Contract,
   WalletConnection,
-//   utils,
-//   providers,
+  //   utils,
+  //   providers,
   Near,
 } from 'near-api-js';
 import { getConfig } from './config';
@@ -21,22 +21,31 @@ class IWalletApi {
   contract: any;
 
   checkSignIn = () => {
-    return window.walletConnection.isSignedIn()
-  }
+    return window.walletConnection.isSignedIn();
+  };
 
   connect = async () => {
-    const config = await this.getConfig();
-    const contractData = await this.initContract();
+    try {
+      const config = await this.getConfig();
+      const contractData = await this.initContract();
 
-    return {
+      return {
         config,
         contractData,
+      };
+    } catch (err) {
+      console.log('connect err::', err);
     }
-  }
+  };
 
   getConfig = async () => {
-    this.nearConfig = await getConfig(process.env.NODE_ENV || 'development');
-    return this.nearConfig;
+    try {
+      this.nearConfig = await getConfig(process.env.NODE_ENV || 'development');
+
+      return this.nearConfig;
+    } catch (err) {
+      console.log('getConfig err::', err);
+    }
   };
 
   initContract = async () => {
@@ -59,23 +68,32 @@ class IWalletApi {
         changeMethods: ['donate'],
       }
     );
-  }
+  };
 
   latestDonations = async () => {
-    const total_donations = await window.contract.total_donations()
-  
-    const min = total_donations > 10 ? total_donations - 9 : 0
-  
-    let donations = await window.contract.get_donations({ from_index: min.toString(), limit: total_donations })
-    
-    return donations
-  }
+    const total_donations = await window.contract.total_donations();
+
+    const min = total_donations > 10 ? total_donations - 9 : 0;
+
+    let donations = await window.contract.get_donations({
+      from_index: min.toString(),
+      limit: total_donations,
+    });
+
+    return donations;
+  };
 
   getMarkets = async () => {
-    let markets = await this.contract.markets({})
-    
-    return markets
-  }
+    let markets = await this.contract.markets({});
+
+    return markets;
+  };
+
+  viewMarket = async (marketId: string) => {
+    let market = await this.contract.view_market({ market_id: marketId });
+
+    return market;
+  };
 }
 
 export const WalletApi = new IWalletApi();
