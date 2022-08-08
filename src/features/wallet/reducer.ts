@@ -44,7 +44,7 @@ export const walletSlice = createSlice({
     },  
   },
   extraReducers: (builder) => {
-    builder.addCase(connectWallet.pending, (state, { payload }) => {
+    builder.addCase(connectWallet.pending, (state) => {
       state.isLoading = true;
     })
     builder.addCase(connectWallet.fulfilled, (state, { payload }) => {

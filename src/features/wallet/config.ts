@@ -1,6 +1,7 @@
+import { CONTRACT_ADDRESS } from 'constants';
 import { keyStores } from 'near-api-js';
 
-const CONTRACT_NAME = process.env.CONTRACT_NAME || 'new-awesome-project';
+const CONTRACT_NAME = process.env.CONTRACT_NAME || CONTRACT_ADDRESS;
 
 export function getConfig(env: string) {
   switch (env) {
