@@ -6,6 +6,11 @@ export const connectWallet = createAsyncThunk('wallet/connect', async () => {
     return response
 })
 
+export const getBalance = createAsyncThunk('wallet/balance', async () => {
+  const response = await WalletApi.initContract();
+  return response
+})
+
 export interface WalletInfo {
     [key: string]: any
 }

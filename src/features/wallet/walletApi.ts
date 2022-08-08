@@ -52,7 +52,7 @@ class IWalletApi {
       window.walletConnection.account(),
       window.nearConfig.contractName,
       {
-        viewMethods: ['beneficiary', 'get_donations', 'total_donations', 'markets', 'view_market'],
+        viewMethods: ['beneficiary', 'get_donations', 'total_donations', 'markets', 'view_market', 'get_deposit'],
         changeMethods: ['donate'],
       }
     );
@@ -71,6 +71,12 @@ class IWalletApi {
     });
 
     return donations;
+  };
+
+  getDeposit = async () => {
+    let deposit = await window.contract.get_deposit({});
+
+    return deposit;
   };
 
   getMarkets = async () => {

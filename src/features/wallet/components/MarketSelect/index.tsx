@@ -1,5 +1,5 @@
 import { Select } from 'antd';
-import { useMarketData } from 'features/wallet/hooks/useMarketData';
+import { useMarketData } from 'features/market/hooks/useMarketData';
 import './MarketSelect.css';
 
 const { Option } = Select;

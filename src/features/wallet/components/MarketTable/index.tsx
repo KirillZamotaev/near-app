@@ -1,5 +1,5 @@
 import { Table } from 'antd';
-import { useTableMarketData } from 'features/wallet/';
+import { useTableMarketData } from 'features/market';
 import { useMemo } from 'react';
 
 export const MarketTable = () => {
@@ -31,7 +31,8 @@ export const MarketTable = () => {
 
   return (
     <div className="MarketTable">
-      <Table loading={isLoading} dataSource={data} columns={columns} />
+      <Table loading={isLoading} dataSource={data.ask_orders} columns={columns} />
+      <Table loading={isLoading} dataSource={data.bid_orders} columns={columns} />
     </div>
   );
 };
