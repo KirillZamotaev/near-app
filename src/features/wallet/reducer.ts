@@ -6,9 +6,13 @@ export const connectWallet = createAsyncThunk('wallet/connect', async () => {
     return response
 })
 
-export const getBalance = createAsyncThunk('wallet/balance', async () => {
-  const response = await WalletApi.initContract();
-  return response
+export const getWalletData = createAsyncThunk('wallet/data', async () => {
+  const address = WalletApi.getAddress();
+  const balance = await WalletApi.getDeposit();
+  return {
+    balance,
+    address,
+  }
 })
 
 export interface WalletInfo {
@@ -20,6 +24,7 @@ export interface UserState {
     isError: boolean; 
     isConnected: boolean;
     data: any;
+    deposit: any;
 }
 
 const initialState: UserState = {
@@ -27,6 +32,7 @@ const initialState: UserState = {
     isError: false,
     isConnected: false,
     data: null,
+    deposit: null,
 }
 
 export const walletSlice = createSlice({
@@ -42,6 +48,17 @@ export const walletSlice = createSlice({
       state.isConnected = true
     })
     builder.addCase(connectWallet.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.isError = true;
+    })
+    builder.addCase(getWalletData.pending, (state) => {
+      state.isLoading = true;
+    })
+    builder.addCase(getWalletData.fulfilled, (state, { payload }) => {
+      state.deposit = payload;
+      state.isConnected = true
+    })
+    builder.addCase(getWalletData.rejected, (state, { payload }) => {
       state.isLoading = false;
       state.isError = true;
     })

@@ -74,7 +74,7 @@ class IWalletApi {
   };
 
   getDeposit = async () => {
-    let deposit = await window.contract.get_deposit({});
+    let deposit = await window.contract.get_deposit({ account_id: window.contract.account.accountId});
 
     return deposit;
   };
@@ -85,7 +85,12 @@ class IWalletApi {
     return markets;
   };
 
+  getAddress = () => {
+      return window.contract.account.accountId;
+  }
+
   viewMarket = async (marketId: string) => {
+    console.log('getting market', marketId);
     let market = await window.contract.view_market({ market_id: marketId });
 
     return market;

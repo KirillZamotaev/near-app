@@ -52,11 +52,11 @@ const initialState: MarketState = {
     }
 }
 
-export const walletSlice = createSlice({
-  name: 'wallet',
+export const marketSlice = createSlice({
+  name: 'market',
   initialState,
   reducers: {
-    setMarket: (state, { payload }) => {
+    setSelectedMarket: (state, { payload }) => {
         state.selectedMarket = payload;
     }
   },
@@ -86,4 +86,6 @@ export const walletSlice = createSlice({
   },
 })
 
-export default walletSlice.reducer
+export const { setSelectedMarket } = marketSlice.actions;
+
+export default marketSlice.reducer
