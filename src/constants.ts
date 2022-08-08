@@ -1,0 +1,1 @@
+export const CONTRACT_ADDRESS = 'https://testnet.nearblocks.io/address/app_2.spin_swap.testnet';
