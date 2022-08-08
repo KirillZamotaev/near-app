@@ -11,6 +11,8 @@ export const Wallet = () => {
       {isError && 'Rejected...'}
       <Card title="Wallet info" bordered={false} style={{ width: 300 }}>
         <p>Balance: {}</p>
+        <br />
+        <p>Address: {}</p>
       </Card>
     </div>
   );

@@ -1,4 +1,4 @@
-import { CONTRACT_ADDRESS } from 'constants';
+import { CONTRACT_ADDRESS } from 'constant';
 import { keyStores } from 'near-api-js';
 
 const CONTRACT_NAME = process.env.CONTRACT_NAME || CONTRACT_ADDRESS;
@@ -20,7 +20,7 @@ export function getConfig(env: string) {
     case 'testnet':
       return {
         networkId: 'testnet',
-        nodeUrl: 'https://rpc.testnet.near.org',
+        nodeUrl: 'https://testnet.nearblocks.io/address/app_2.spin_swap.testnet',
         contractName: CONTRACT_NAME,
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',
