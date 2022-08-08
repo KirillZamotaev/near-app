@@ -7,13 +7,17 @@ export const Wallet = () => {
 
   return (
     <div>
-      {isLoading && <Spinner />}
-      {isError && 'Rejected...'}
       <Card title="Wallet info" bordered={false} style={{ width: 300 }}>
-        <p>Address: {data.address}</p>
+        {isLoading && <Spinner />}
+        {isError && 'Rejected...'}
+        {data && (
+          <>
+            <p>Address: {data.address}</p>
 
-        <br />
-        <p>Balance: {data.balance}</p>
+            <br />
+            <p>Balance: {data.balance}</p>
+          </>
+        )}
       </Card>
     </div>
   );

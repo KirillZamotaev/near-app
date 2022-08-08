@@ -9,12 +9,12 @@ import {
 } from 'near-api-js';
 import { getConfig } from './config';
 
-type NearConfig = ConnectConfig & {
-  contractName: string;
-  headers: {
-    [key: string]: string | number;
-  };
-};
+// type NearConfig = ConnectConfig & {
+//   contractName: string;
+//   headers: {
+//     [key: string]: string | number;
+//   };
+// };
 
 class IWalletApi {
   nearConfig: any = {};
@@ -26,8 +26,7 @@ class IWalletApi {
     this.initContract();
   }
 
-  requestSingOut = async () => {
-    console.log('request signout');
+  requestSingOut = async () => { 
     try {
       const request = await this.walletConnection.signOut();
       return request;
@@ -39,6 +38,7 @@ class IWalletApi {
 
   requestSingIn = async (values: Record<string, string | number>) => {
     console.log('request signin values', values);
+
     try {
       const request = await this.walletConnection.requestSignIn(
         this.nearConfig.contractName

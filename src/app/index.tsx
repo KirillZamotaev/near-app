@@ -1,6 +1,5 @@
 import { notification } from 'antd';
 import { FC } from 'react';
-
 import { Routing } from 'routing';
 
 import './App.css';
@@ -13,7 +12,6 @@ notification.config({
 });
 
 export const App: FC = () => {
-
   return (
     <div className="App">
       <Routing />

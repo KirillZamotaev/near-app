@@ -23,9 +23,7 @@ const initialState: UserState = {
 export const signIn = createAsyncThunk(
   'user/signIn',
   async (values: Record<string, string | number>) => {
-    await new Promise((res) => {
-      setTimeout(() => { res(1) }, 2000);
-    });
+    console.log('signIn async', values);
     const response = await WalletApi.requestSingIn(values);
     return response;
   }
@@ -42,7 +40,7 @@ export const signInCheck = createAsyncThunk('user/signinCheck', async () => {
   return isSignedIn;
 });
 
-export const walletSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
@@ -76,9 +74,14 @@ export const walletSlice = createSlice({
       });
     });
     builder.addCase(signOut.pending, (state, { payload }) => {
-      state = initialState;
+      state.isSignedIn = false;
+      state.data = {};
+    });
+    builder.addCase(signOut.rejected, (state, { payload }) => {
+      state.isSignedIn = false;
+      state.isLoading = false;
     });
   },
 });
 
-export default walletSlice.reducer;
+export default userSlice.reducer;

@@ -1,18 +1,13 @@
 import { Page } from 'routing/components/Page';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useUser } from 'features/user';
-import { useNavigate } from 'react-router';
 import { Spinner } from 'routing/components/Loader';
 
-export const SignIn = () => {
-  const navigate  = useNavigate();
-
+export const SignIn: React.FC<{}> = () => {
   const { isLoading, signIn } = useUser();
 
   const onFinish = (values: any) => {
-    console.log('values', values);
-    signIn(values)
-    navigate('/')
+    signIn(values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -59,8 +54,12 @@ export const SignIn = () => {
             Submit
           </Button>
         </Form.Item>
+        {isLoading && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Spinner />
+          </div>
+        )}
       </Form>
-      {isLoading && <Spinner />}
     </Page>
   );
 };

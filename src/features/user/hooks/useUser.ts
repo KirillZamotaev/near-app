@@ -1,17 +1,28 @@
-import { useEffect  } from 'react';
-import { useSelector } from "react-redux";
-import { userSelector, signIn, signOut, signInCheck } from "features/user";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector, signIn, signOut, signInCheck } from 'features/user';
+import { useNavigate } from 'react-router';
 
 export const useUser = () => {
-    const userState = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userState = useSelector(userSelector);
 
-    useEffect(() => {
-        signInCheck();
-    }, [])
-
-    return {
-        ...userState,
-        signIn,
-        signOut,
+  useEffect(() => {
+    if (userState.isSignedIn) {
+      navigate('/');
+    } else {
+        navigate('/signin');
     }
-}
+  }, [navigate, userState.isSignedIn]);
+
+  useEffect(() => {
+    signInCheck();
+  }, []);
+
+  return {
+    ...userState,
+    signIn: (args: any) => dispatch(signIn(args)),
+    signOut: () => dispatch(signOut()),
+  };
+};
