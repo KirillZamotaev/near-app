@@ -5,12 +5,10 @@ import { signIn } from 'features/user';
 import { useNavigate } from 'react-router';
 
 export const SignIn = () => {
-  const dispatch = useDispatch();  
-
   const navigate  = useNavigate();
 
   const onFinish = (values: any) => {
-    dispatch(signIn(values))
+    signIn(values)
     navigate('/')
   };
 
