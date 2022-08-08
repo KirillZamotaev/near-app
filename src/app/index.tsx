@@ -1,16 +1,16 @@
 import { FC } from 'react';
-import { store } from 'store';
-import { Provider } from 'react-redux';
-import './App.css';
 
 import { Routing } from 'routing';
+import { useWalletConnect } from 'features/wallet';
+
+import './App.css';
 
 export const App: FC = () => {
+  useWalletConnect();
+
   return (
     <div className="App">
-      <Provider store={store}>
-        <Routing />
-      </Provider>
+      <Routing />
     </div>
   );
 };

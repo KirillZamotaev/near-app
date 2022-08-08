@@ -23,7 +23,7 @@ export const Page: FC<{ children: React.ReactNode }> = ({ children }) => {
         <Button onClick={handleSignOut}>Sign out</Button>
       </Header>
       <Content className="App__content">{children}</Content>
-      <Footer>Test assignment</Footer>
+      <Footer style={{ textAlign: 'center' }}>Test assignment</Footer>
     </Layout>
   );
 };
