@@ -24,10 +24,16 @@ class IWalletApi {
     return window.walletConnection.isSignedIn();
   };
 
+  constructor (){
+    this.connect();
+  }
+
   connect = async () => {
     try {
       const config = await this.getConfig();
       const contractData = await this.initContract();
+
+      console.log('config', config);
 
       return {
         config,
@@ -41,7 +47,7 @@ class IWalletApi {
   getConfig = async () => {
     try {
       this.nearConfig = await getConfig(process.env.NODE_ENV || 'development');
-
+      console.log('config', this.nearConfig);
       return this.nearConfig;
     } catch (err) {
       console.log('getConfig err::', err);
@@ -50,6 +56,8 @@ class IWalletApi {
 
   initContract = async () => {
     const { nearConfig } = this;
+
+    console.log('nearConfig', nearConfig);
     // Set a connection to the NEAR network
     window.near = await connect(nearConfig);
 
