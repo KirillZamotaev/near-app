@@ -1,6 +1,6 @@
 import { useEffect  } from 'react';
 import { useSelector } from "react-redux";
-import { userSelector, signIn, signInCheck } from "features/user";
+import { userSelector, signIn, signOut, signInCheck } from "features/user";
 
 export const useUser = () => {
     const userState = useSelector(userSelector);
@@ -12,5 +12,6 @@ export const useUser = () => {
     return {
         ...userState,
         signIn,
+        signOut,
     }
 }
