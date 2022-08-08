@@ -1,5 +1,5 @@
 import { notification } from 'antd';
-import { useWallet } from 'features/wallet';
+import { WalletApi } from 'features/wallet/walletApi';
 import { FC } from 'react';
 import { Routing } from 'routing';
 
@@ -12,8 +12,10 @@ notification.config({
   rtl: true,
 });
 
+
+WalletApi.initContract();
+
 export const App: FC = () => {
-  useWallet();
 
   return (
     <div className="App">
