@@ -6,7 +6,7 @@ import { utils } from 'near-api-js';
 export const Wallet = () => {
   const { data, isLoading } = useWallet();
 
-  const formatter = (value: number) => {};
+  const formatter = (value: string) => utils.format.formatNearAmount(value);
 
   return (
     <div>
@@ -23,24 +23,24 @@ export const Wallet = () => {
                 <ul>
                   <li>
                     <p>
-                      Total: <b>{data.balance.total}</b>
+                      Total: <b>{formatter(data.balance.total)}</b>
                     </p>
                   </li>
                   <li>
                     <p>
-                      Staked: <b>{data.balance.staked}</b>
-                    </p>
-                  </li>
-                  <li>
-                    {' '}
-                    <p>
-                      Available: <b>{data.balance.available}</b>
+                      Staked: <b>{formatter(data.balance.staked)}</b>
                     </p>
                   </li>
                   <li>
                     {' '}
                     <p>
-                      State staked: <b>{data.balance.stateStaked}</b>
+                      Available: <b>{formatter(data.balance.available)}</b>
+                    </p>
+                  </li>
+                  <li>
+                    {' '}
+                    <p>
+                      State staked: <b>{formatter(data.balance.stateStaked)}</b>
                     </p>
                   </li>
                 </ul>
