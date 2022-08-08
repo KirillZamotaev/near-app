@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { WalletApi } from './walletApi'; 
 
 export const connectWallet = createAsyncThunk('wallet/connect', async () => {
