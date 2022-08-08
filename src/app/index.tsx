@@ -1,8 +1,6 @@
 import { notification } from 'antd';
 import { useWallet } from 'features/wallet';
-import { FC, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import { FC } from 'react';
 import { Routing } from 'routing';
 
 import './App.css';
