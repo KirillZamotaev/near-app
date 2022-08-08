@@ -31,7 +31,7 @@ class IWalletApi {
   };
 
   requestSignIn = () => {
-    window.walletConnection.requestSignIn();
+    window.walletConnection.requestSignIn(window.nearConfig.contractName);
   };
 
   checkSignIn = () => {
