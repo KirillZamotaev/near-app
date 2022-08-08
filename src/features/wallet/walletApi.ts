@@ -20,7 +20,7 @@ declare global {
 
 
 class IWalletApi {
-  requestSingOut = async () => { 
+  requestSignOut = async () => { 
     try {
       const request = await window.walletConnection.signOut();
       return request;
@@ -52,7 +52,7 @@ class IWalletApi {
       window.walletConnection.account(),
       window.nearConfig.contractName,
       {
-        viewMethods: ['beneficiary', 'get_donations', 'total_donations'],
+        viewMethods: ['beneficiary', 'get_donations', 'total_donations', 'markets', 'view_market'],
         changeMethods: ['donate'],
       }
     );

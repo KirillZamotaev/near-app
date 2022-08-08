@@ -1,9 +1,8 @@
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const inject = require("@rollup/plugin-inject");
 const webpack = require('webpack');
 
 module.exports = {
-    // Other rules...
-    
     resolve: {
         extensions: [ '.ts', '.js' ],
         fallback: {
@@ -11,9 +10,12 @@ module.exports = {
             "buffer": require.resolve("buffer")
         }
     },
+    build: {
+        rollupOptions: {
+            plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
+        },
+    },
     plugins: [
-        // Work around for Buffer is undefined:
-        // https://github.com/webpack/changelog-v5/issues/10
         new NodePolyfillPlugin(),
         new webpack.ProvidePlugin({
             Buffer: ['buffer', 'Buffer'],

@@ -20,7 +20,7 @@ export function getConfig(env: string) {
     case 'testnet':
       return {
         networkId: 'testnet',
-        nodeUrl: `${CONTRACT_TESTNET_PATH}${CONTRACT_NAME}`,
+        nodeUrl: 'https://rpc.testnet.near.org',
         contractName: CONTRACT_NAME,
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',

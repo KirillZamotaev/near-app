@@ -29,7 +29,7 @@ export const signIn = createAsyncThunk(
 );
 
 export const signOut = createAsyncThunk('user/signOut', async () => {
-  const response = await WalletApi.requestSingOut();
+  const response = await WalletApi.requestSignOut();
   return response;
 });
 

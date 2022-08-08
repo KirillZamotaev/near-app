@@ -5,6 +5,8 @@ import { Routing } from 'routing';
 
 import './App.css';
 
+window.Buffer = window.Buffer || require("buffer").Buffer;
+
 notification.config({
   placement: 'topRight',
   bottom: 50,
