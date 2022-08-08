@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { WalletApi } from 'features/wallet/walletApi';
 
 export interface WalletInfo {
     [key: string]: any

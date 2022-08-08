@@ -20,6 +20,10 @@ class IWalletApi {
   nearConfig: any;
   contract: any;
 
+  requestSingIn = () => {
+    window.walletConnection.requestSignIn(this.nearConfig.contractName)
+  }
+
   checkSignIn = () => {
     return window.walletConnection.isSignedIn();
   };
@@ -32,10 +36,12 @@ class IWalletApi {
     try {
       const config = await this.getConfig();
       const contractData = await this.initContract();
+      const signin = await WalletApi.requestSingIn();
 
-      console.log('config', config);
+      console.log('signin', signin);
 
       return {
+        signin,
         config,
         contractData,
       };
@@ -92,7 +98,7 @@ class IWalletApi {
   };
 
   getMarkets = async () => {
-    let markets = await this.contract.markets({});
+    let markets = await window.contract.markets({});
 
     return markets;
   };
