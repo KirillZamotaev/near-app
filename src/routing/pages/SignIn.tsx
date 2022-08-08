@@ -10,6 +10,7 @@ export const SignIn = () => {
   const { isLoading, signIn } = useUser();
 
   const onFinish = (values: any) => {
+    console.log('values', values);
     signIn(values)
     navigate('/')
   };

@@ -24,7 +24,7 @@ export const signIn = createAsyncThunk(
   'user/signIn',
   async (values: Record<string, string | number>) => {
     await new Promise((res) => {
-      setTimeout(() => res(1), 2000);
+      setTimeout(() => { res(1) }, 2000);
     });
     const response = await WalletApi.requestSingIn(values);
     return response;
@@ -49,6 +49,7 @@ export const walletSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state, { payload }) => {
       state.isLoading = true;
+      state.isSignedIn = true;
       state.data = payload;
     });
     builder.addCase(signIn.fulfilled, (state, { payload }) => {
@@ -56,9 +57,14 @@ export const walletSlice = createSlice({
       state.isLoading = false;
       state.contractData = payload?.contractData;
     });
-    builder.addCase(signIn.rejected, (state) => {
+    builder.addCase(signIn.rejected, (state, { error }) => {
       state.isSignedIn = false;
       state.isLoading = false;
+
+      notification.open({
+        message: 'Error',
+        description: error.message,
+      });
     });
     builder.addCase(signInCheck.fulfilled, (state, { payload }) => {
       state.isSignedIn = payload;
