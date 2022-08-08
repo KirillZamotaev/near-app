@@ -13,10 +13,6 @@
   color: #61dafb;
 }
 
-.App__logo {
-  width: 80px;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -26,16 +22,6 @@
   }
 }
 
-.App__content {
-  min-height: calc(100vh - 200px);
-  padding: 30px;
-}
-
-.site-layout-content {
-  min-height: 280px;
-  padding: 24px;
-  background: #fff;
-}
 
 .ant-row-rtl #components-layout-demo-top .logo {
   float: right;

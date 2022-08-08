@@ -1,11 +1,13 @@
 import { Page } from 'routing/components/Page';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { useDispatch } from 'react-redux';
-import { signIn } from 'features/user';
+import { useUser } from 'features/user';
 import { useNavigate } from 'react-router';
+import { Spinner } from 'routing/components/Loader';
 
 export const SignIn = () => {
   const navigate  = useNavigate();
+
+  const { isLoading, signIn } = useUser();
 
   const onFinish = (values: any) => {
     signIn(values)
@@ -26,6 +28,7 @@ export const SignIn = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        disabled={isLoading}
       >
         <Form.Item
           label="Username"
@@ -57,6 +60,7 @@ export const SignIn = () => {
           </Button>
         </Form.Item>
       </Form>
+      {isLoading && <Spinner />}
     </Page>
   );
 };

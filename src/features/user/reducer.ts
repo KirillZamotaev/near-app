@@ -7,21 +7,23 @@ export interface WalletInfo {
 
 export interface UserState {
   data: any;
+  isLoading: boolean;
   contractData: any;
   isSignedIn: boolean;
 }
 
 const initialState: UserState = {
   data: {},
+  isLoading: false,
   contractData: {},
   isSignedIn: false,
 };
 
-export const signIn = createAsyncThunk('user/signing', async () => {
+export const signIn = createAsyncThunk('user/signing', async (values: Record<string, string | number>) => {
   await new Promise((res) => {
     setTimeout(() => res(1), 2000);
   });
-  const response = await WalletApi.requestSingIn();
+  const response = await WalletApi.requestSingIn(values);
   return response;
 });
 
@@ -35,10 +37,13 @@ export const walletSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state, { payload }) => {
+
+        state.isLoading = true;
         state.data = payload;
     });
     builder.addCase(signIn.fulfilled, (state, { payload }) => {
       state.isSignedIn = true;
+      state.isLoading = false;
       state.contractData = payload?.contractData;
     });
   },

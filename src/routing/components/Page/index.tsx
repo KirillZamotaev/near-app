@@ -4,6 +4,7 @@ import logo from 'assets/logo.svg';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { signOut } from 'features/user';
+import './Page.css';
 
 const { Header, Footer, Content } = Layout;
 
@@ -19,10 +20,10 @@ export const Page: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Layout>
       <Header>
-        <img src={logo} className="App__logo" alt="logo" />
+        <img src={logo} className="Page__logo" alt="logo" />
         <Button onClick={handleSignOut}>Sign out</Button>
       </Header>
-      <Content className="App__content">{children}</Content>
+      <Content className="Page__content">{children}</Content>
       <Footer style={{ textAlign: 'center' }}>Test assignment</Footer>
     </Layout>
   );
