@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { WalletApi } from 'features/wallet/walletApi';
 
@@ -19,24 +20,26 @@ const initialState: UserState = {
   isSignedIn: false,
 };
 
-export const signIn = createAsyncThunk('user/signin', async (values: Record<string, string | number>) => {
-  await new Promise((res) => {
-    setTimeout(() => res(1), 2000);
-  });
-  const response = await WalletApi.requestSingIn(values);
-  return response;
-});
+export const signIn = createAsyncThunk(
+  'user/signin',
+  async (values: Record<string, string | number>) => {
+    await new Promise((res) => {
+      setTimeout(() => res(1), 2000);
+    });
+    const response = await WalletApi.requestSingIn(values);
+    return response;
+  }
+);
 
 export const signOut = createAsyncThunk('user/signout', async () => {
   const response = await WalletApi.requestSingOut();
   return response;
-})
-
+});
 
 export const signInCheck = createAsyncThunk('user/signing', async () => {
-    const isSignedIn = WalletApi.checkSignIn();
+  const isSignedIn = WalletApi.checkSignIn();
 
-    return isSignedIn;
+  return isSignedIn;
 });
 
 export const walletSlice = createSlice({
@@ -45,8 +48,8 @@ export const walletSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state, { payload }) => {
-        state.isLoading = true;
-        state.data = payload;
+      state.isLoading = true;
+      state.data = payload;
     });
     builder.addCase(signIn.fulfilled, (state, { payload }) => {
       state.isSignedIn = true;
@@ -54,14 +57,16 @@ export const walletSlice = createSlice({
       state.contractData = payload?.contractData;
     });
     builder.addCase(signIn.rejected, (state, { payload }) => {
-        state.isSignedIn = false;
-        state.isLoading = false;
-      });
+      state.isSignedIn = false;
+      state.isLoading = false;
+    });
     builder.addCase(signInCheck.fulfilled, (state, { payload }) => {
-        state.isSignedIn = payload;
-    })
+      state.isSignedIn = payload;
+    });
     builder.addCase(signOut.fulfilled, (state, { payload }) => {
-      state = initialState;
+      notification.open({
+        message: 'Signed out successfully',
+      });
     });
     builder.addCase(signOut.pending, (state, { payload }) => {
       state = initialState;
